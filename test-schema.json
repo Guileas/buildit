@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "block": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name",
+                "templatePreview",
+                "settings",
+                "constraints"
+            ],
+            "properties": {
+                "id": {
+                    "pattern": "^urn:[0-9a-zA-Z:]+",
+                    "minLength": 6,
+                    "type": "string"
+                },
+                "name": {
+                    "minLength": 2,
+                    "type": "string"
+                },
+                "settings": {
+                    "type": "object",
+                    "$ref": "#/definitions/settings"
+                },
+                "constraints": {
+                    "type": "array",
+                    "$ref": "#/definitions/constraints"
+                },
+                "templatePreview": {
+                    "minLength": 2,
+                    "type": ["string", "null"],
+                    "description": "html preview with test data"
+                }
+            }
+        },
+        "settings": {
+            "type": "array",
+            "additionalItems": false,
+            "required": [
+                "name",
+                "type"
+            ],
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": ["array",
+                            "boolean",
+                            "integer",
+                            "null",
+                            "number",
+                            "object",
+                            "string"
+                        ]
+                    }
+                }
+            }
+        },
+        "constraints": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "properties": {
+        "blocks": {
+            "type": "array",
+            "additionalItems": false,
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "$ref": "#/definitions/block"
+            }
+        }
+    }
+}
