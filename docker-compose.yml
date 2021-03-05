@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  node:
+    image: node:14-alpine
+    container_name: buildit
+    hostname: react.buildit.local
+    domainname: buildit.local
+    stdin_open: true
+    tty: true  
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    networks:
+       buildit_devEnvLocal:
+        aliases:
+          - react.devEnv.local
+
+networks:
+  buildit_devEnvLocal:
+    driver: bridge
+    name: buildit_devEnvLocal
